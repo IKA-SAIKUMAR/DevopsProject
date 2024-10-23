@@ -54,9 +54,13 @@
 <body>
     <div class="container">
         <h1>BMI Calculator</h1>
-        <label for="height">Height (in meters):</label>
-        <input type="number" id="height" step="0.01" placeholder="Enter height in meters">
         
+        <label for="feet">Height (Feet):</label>
+        <input type="number" id="feet" placeholder="Enter feet" min="0">
+
+        <label for="inches">Height (Inches):</label>
+        <input type="number" id="inches" placeholder="Enter inches" min="0" max="11">
+
         <label for="weight">Weight (in kilograms):</label>
         <input type="number" id="weight" step="0.1" placeholder="Enter weight in kilograms">
         
@@ -67,11 +71,16 @@
 
     <script>
         function calculateBMI() {
-            var height = document.getElementById('height').value;
+            var feet = document.getElementById('feet').value;
+            var inches = document.getElementById('inches').value;
             var weight = document.getElementById('weight').value;
 
-            if (height > 0 && weight > 0) {
-                var bmi = weight / (height * height);
+            // Convert height to meters
+            var totalInches = (parseFloat(feet) * 12) + parseFloat(inches);
+            var heightInMeters = totalInches * 0.0254;
+
+            if (heightInMeters > 0 && weight > 0) {
+                var bmi = weight / (heightInMeters * heightInMeters);
                 bmi = bmi.toFixed(2);  // Round to two decimal places
                 document.getElementById('result').innerHTML = "Your BMI is " + bmi;
             } else {
